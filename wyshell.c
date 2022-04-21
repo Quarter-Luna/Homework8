@@ -44,9 +44,10 @@ int main()
     char args[4096];
     while (1)
     {
-        printf("$> ");
+
         if (Head == NULL)
         {
+            printf("$> ");
             Head = calloc(1,sizeof(Node));
             if(Head == NULL) 
             {
