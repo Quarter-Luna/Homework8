@@ -54,7 +54,7 @@ int main()
             }
             current = Head;
             printf("$> ");
-            parsel_lines(fgets(args, 4096, stdin));
+            parsel_line(fgets(args, 4096, stdin));
             printf(":--: %s",args);
 
         }
