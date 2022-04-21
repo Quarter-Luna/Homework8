@@ -31,12 +31,12 @@ struct word
     struct word *next, *prev;
     char *string;
 };
-
+/*
 void wordAdd(Node *node, const char* arg) 
 {
     
 }
-
+*/
 int main()
 {
     Node *Head = NULL, *current = NULL;
@@ -54,7 +54,8 @@ int main()
             }
             current = Head;
             printf("$> ");
-            fgets(args, 4096, stdin);
+            parsel_lines(fgets(args, 4096, stdin));
+            printf(":--: %s",args);
 
         }
     }
