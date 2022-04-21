@@ -20,8 +20,7 @@ int main()
     while(1)
     {
         printf("$> ");
-        fgets(args, 4096, stdin);
-        parse_line(args);
+        parse_line(fgets(args, 4096, stdin));
 
     }
 }
