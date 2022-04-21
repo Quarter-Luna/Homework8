@@ -14,6 +14,7 @@
 #include "wyscanner.h"
 #include <stdio.h>
 
+
 typedef struct node Node;
 typedef struct word Word;
 
@@ -31,34 +32,49 @@ struct word
     struct word *next, *prev;
     char *string;
 };
-/*
+
 void wordAdd(Node *node, const char* arg) 
 {
     
 }
-*/
+
 int main()
 {
-    Node *Head = NULL, *current = NULL;
+    Node *Head, *current;
 
-    char args[4096];
+    char args[1024];
+    char *argl;
+    int com;
+    int in, out, err; // STDIN_FILENO, STDOUT_FILENO, STDERR_FILENO
+    char* infile, outfile, errfile;
     while (1)
     {
-
-        if (Head == NULL)
+        printf("$> ");
+        Head = current = NULL;
+        argl = fgets(args,256,stdin);
+        com = parse_line(args);
+        while(com != EOL) 
         {
-            printf("$> ");
-            Head = calloc(1,sizeof(Node));
-            if(Head == NULL) 
+            switch(com) 
             {
-                perror("calloc()");
-                return 1;
+                case WORD:
+                  if(Head==NULL)
+                  {
+                    Head = newNode();
+                    current = Head;
+                  }
+                  if(current->command==NULL) 
+                  {
+                    current->command=strdup(lexeme);
+                  }
+                  else
+                  {
+                    wordAdd(Head,current);
+                  }
+                  break;
+                  case REDIR_OUT:
+                    
             }
-            current = Head;
-
-            parse_line(fgets(args, 4096, stdin));
-            printf(":--: %s",args);
-
         }
     }
 }
