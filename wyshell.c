@@ -6,24 +6,24 @@
  * This file is the set up the shell
  * using functions from the wyscanner
  * to make a working shell
- * 
- * Collaborated with Zach Chrimmel on 
+ *
+ * Collaborated with Zach Chrimmel on
  * this project
  ************************************/
 
 #include "wyscanner.h"
 #include <stdio.h>
 
-int main() 
+int main()
 {
     char args[4096];
-    while(1)
+    int something;
+    while (1)
     {
         printf("$> ");
         fgets(args, 4096, stdin);
-        while(args != NULL) 
-        {
-            parse_line(args);
-        }
+
+        something = parse_line(args);
+        fprintf("%d", something);
     }
 }
