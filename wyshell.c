@@ -44,6 +44,7 @@ int main()
     char args[4096];
     while (1)
     {
+        printf("$> ");
         if (Head == NULL)
         {
             Head = calloc(1,sizeof(Node));
@@ -53,7 +54,7 @@ int main()
                 return 1;
             }
             current = Head;
-            printf("$> ");
+
             parse_line(fgets(args, 4096, stdin));
             printf(":--: %s",args);
 
