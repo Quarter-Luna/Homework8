@@ -47,6 +47,11 @@ int main()
         if (Head == NULL)
         {
             Head = calloc(1,sizeof(Node));
+            if(Head == NULL) 
+            {
+                perror("calloc()");
+                return 1;
+            }
             current = Head;
             printf("$> ");
             fgets(args, 4096, stdin);
