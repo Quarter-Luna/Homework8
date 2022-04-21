@@ -18,7 +18,7 @@ RM= rm -f
 
 new: wyshell
 
-wyshell:
+wyshell: wyscanner.c
 	${CC} ${CFLAGS} wyscanner.c wyshell.c -o wyshell
 
 clean:
