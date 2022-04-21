@@ -21,12 +21,6 @@ new: wyshell
 wyshell:
 	${CC} ${CFLAGS} wyscanner.c wyshell.c -o wyshell
 
-# wyshell.o: wyshell.c
-#	${CC} ${CFLAGS} -c wyshell.c
-
-# wyscanner.o: wyscanner.c
-#	${CC} ${CFLAGS} -c wyscanner.c
-
 clean:
 	${RM} *.o wyscanner
 
