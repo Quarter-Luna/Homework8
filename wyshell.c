@@ -17,13 +17,10 @@
 int main()
 {
     char args[4096];
-    int something;
     while (1)
     {
         printf("$> ");
         fgets(args, 4096, stdin);
-
-        something = parse_line(args);
-        fprintf("%d", something);
+    
     }
 }
