@@ -16,14 +16,14 @@
 
 int main() 
 {
-    char args;
+    char args[4096];
     while(1)
     {
         printf("$> ");
-        parse_line(fgets(args, 4096, stdin));
-        if(args != NULL)
+        fgets(args, 4096, stdin);
+        while(args != NULL) 
         {
-            printf("args filled");
+            parse_line(args);
         }
     }
 }
