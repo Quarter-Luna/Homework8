@@ -23,13 +23,13 @@ struct node {
     Word *arg_list;
     int input, output, error;
     char *in_file, *out_file, *err_file;
-}
+};
 
 struct word 
 {
     struct word *next, *prev;
     char *string;
-}
+};
 
 int main()
 {
