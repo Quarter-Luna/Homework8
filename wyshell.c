@@ -72,7 +72,7 @@ int main()
                     wordAdd(Head,current);
                   }
                   break;
-                  case REDIR_OUT:
+                  // case REDIR_OUT:
                     
             }
         }
