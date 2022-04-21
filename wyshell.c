@@ -60,7 +60,7 @@ int main()
                 case WORD:
                   if(Head==NULL)
                   {
-                    Head = newNode();
+                    // Head = newNode();
                     current = Head;
                   }
                   if(current->command==NULL) 
