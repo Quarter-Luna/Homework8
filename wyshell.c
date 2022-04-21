@@ -23,7 +23,7 @@ int main()
         parse_line(fgets(args, 4096, stdin));
         if(args != NULL)
         {
-            fprint("%s",args);
+            fprintf("%s",args);
         }
     }
 }
