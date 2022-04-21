@@ -11,7 +11,7 @@
  * this project
  ************************************/
 
-#include "wyscanner.c"
+#include "wyscanner.h"
 #include <stdio.h>
 
 int main() 
@@ -20,7 +20,7 @@ int main()
     while(1)
     {
         printf("$> ");
-        parse_line(stdin);
-        
+        args = parse_line(stdin);
+
     }
 }
