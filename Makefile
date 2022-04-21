@@ -22,7 +22,7 @@ wyshell: wyscanner.c
 	${CC} ${CFLAGS} wyscanner.c wyshell.c -o wyshell
 
 clean:
-	${RM} *.o wyscanner
+	${RM} *.o wyshell
 
 tidy:
-	${RM} a.out core.* wyscanner
+	${RM} a.out core.* wyshell
