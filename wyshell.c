@@ -84,7 +84,7 @@ int main()
         int count = 0;
         while (count < yylex())
         {
-            switch (rtn)
+            switch (rtn - 1)
             {
             case WORD:
                 if (Head == NULL)
