@@ -110,9 +110,7 @@ int main()
       // case REDIR_OUT:
       //     printf(">\n");
       // }
-      default:
-        printf("argument invalid");
-      }
+      
       parse_line(NULL);
     }
     commands = calloc(1, sizeof(Word));
