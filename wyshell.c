@@ -111,6 +111,7 @@ int main()
       //     printf(">\n");
       // }
       
+      }
       parse_line(NULL);
     }
     commands = calloc(1, sizeof(Word));
