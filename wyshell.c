@@ -115,7 +115,7 @@ int main()
         }
         commands = calloc(1, sizeof(Word));
         commands = current->arg_list;
-        while(commands->prev != NULL){
+        /*while(commands->prev != NULL){
             commands = commands->prev;
         }
         while (commands != NULL)
@@ -123,5 +123,6 @@ int main()
             printf("%s\n", commands->string);
             commands = commands->next;
         }
+        */
     }
 }
