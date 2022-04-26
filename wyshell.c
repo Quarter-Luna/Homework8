@@ -82,7 +82,7 @@ int main()
         rtn = parse_line(buff);
         current = calloc(1, sizeof(Node));
         int count = 0;
-        while (count < rtn)
+        while (rtn != EOL)
         {
             switch (rtn)
             {
