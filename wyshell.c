@@ -105,7 +105,7 @@ int main()
           printf(" --: %s\n", lexeme);
           // printf("Command added to list");
         }
-        
+        break;
         // commands = head;
       // case REDIR_OUT:
       //     printf(">\n");
