@@ -81,8 +81,7 @@ int main()
         Word *commands = NULL;
         rtn = parse_line(buff);
         current = calloc(1, sizeof(Node));
-        int count = 0;
-        while (rtn != EOL)
+        while (rtn != EOL) 
         {
             switch (rtn)
             {
@@ -107,11 +106,13 @@ int main()
                     printf(" --: %s\n", lexeme);
                     // printf("Command added to list");
                 }
-                count++;
+                rtn = parse_line(rtn);
                 // commands = head;
             // case REDIR_OUT:
             //     printf(">\n");
             // }
+            default:
+              printf("argument invalid");
             }
         }
         commands = calloc(1, sizeof(Word));
