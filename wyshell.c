@@ -93,10 +93,7 @@ int main()
                     current = Head;
                     // printf("head created");
                 }
-                if(count == 0) {
-                  Head->prev->command = strdup(lexeme);
-                  printf(":--: %s\n", lexeme);
-                }
+                
 
                 if (current->command == NULL)
                 {
