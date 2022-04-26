@@ -75,7 +75,7 @@ int main()
 {
     while (1)
     {
-        printf("$>");
+        printf("$> ");
         prtn = fgets(buff, 4096, stdin);
         Node *Head, *current = NULL;
         Word *commands = NULL;
@@ -92,6 +92,10 @@ int main()
                     Head = calloc(1, sizeof(Node));
                     current = Head;
                     // printf("head created");
+                }
+                if(count == 0) {
+                  Head->command = strdup(lexeme);
+                  printf(":--: %s\n", lexeme);
                 }
 
                 if (current->command == NULL)
