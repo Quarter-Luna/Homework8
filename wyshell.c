@@ -75,7 +75,7 @@ int main()
 {
     while (1)
     {
-        printf("$> ");
+        printf("$>");
         prtn = fgets(buff, 4096, stdin);
         Node *Head, *current = NULL;
         Word *commands = NULL;
