@@ -11,21 +11,21 @@
  * this project
  ************************************/
 
-#include "wyscanner.h"
+//
+// wyshell.c
+// Author: Zachary Crimmel
+// Date: Apr 20, 2022
+//
+// COSC 3750, Homework 8
+//
+// This is a shell program that was written in c
+// Collaborated with Ian Moon on this Homework
+//
+
 #include <stdio.h>
-
-
-typedef struct node Node;
-typedef struct word Word;
-
-struct node
-{
-    struct node *next, *prev;
-    char *command;
-    Word *arg_list;
-    int input, output, error;
-    char *in_file, *out_file, *err_file;
-};
+#include <stdlib.h>
+#include <string.h>
+#include "wyscanner.h"
 
 struct word
 {
@@ -33,48 +33,95 @@ struct word
     char *string;
 };
 
-void wordAdd(Node *node, const char* arg) 
+typedef struct word Word;
+
+struct node
 {
-    
+    struct node *node, *prev;
+    char *command;
+    Word *arg_list;
+    int input, output, error;
+    char *in_file, *out_file, *err_file;
+};
+
+typedef struct node Node;
+
+int rtn = 0;
+char *prtn;
+char buff[4096];
+
+void addToList(char *input, Node *list)
+{
+    Word *tmp;
+    tmp = list->arg_list;
+    if (tmp == NULL)
+    {
+        tmp = calloc(1, sizeof(Word));
+        tmp->string = strdup(input);
+        list->arg_list = tmp;
+    }
+    else
+    {
+        while (tmp->next != NULL)
+            tmp = tmp->next;
+        tmp->next = calloc(1, sizeof(Word));
+        tmp->next->prev = tmp;
+        tmp->next->string = strdup(input);
+    }
+    list->arg_list = tmp;
 }
 
 int main()
 {
-    Node *Head, *current;
-
-    char args[1024];
-    char *argl;
-    int com;
-    int in, out, err; // STDIN_FILENO, STDOUT_FILENO, STDERR_FILENO
-    char* infile, outfile, errfile;
     while (1)
     {
         printf("$> ");
-        Head = current = NULL;
-        argl = fgets(args,256,stdin);
-        com = parse_line(args);
-        while(com != EOL) 
+        prtn = fgets(buff, 4096, stdin);
+        Node *Head, *current = NULL;
+        Word *commands = NULL;
+        rtn = parse_line(buff);
+        current = calloc(1, sizeof(Node));
+        int count = 0;
+        while (count < yylex())
         {
-            switch(com) 
+            switch (rtn)
             {
-                case WORD:
-                  if(Head==NULL)
-                  {
-                    // Head = newNode();
+            case WORD:
+                if (Head == NULL)
+                {
+                    Head = calloc(1, sizeof(Node));
                     current = Head;
-                  }
-                  if(current->command==NULL) 
-                  {
-                    current->command=strdup(lexeme);
-                  }
-                  else
-                  {
-                    wordAdd(Head,current);
-                  }
-                  break;
-                  // case REDIR_OUT:
-                    
+                    // printf("head created");
+                }
+
+                if (current->command == NULL)
+                {
+                    current->command = strdup(lexeme);
+                    printf(":--: %s\n", lexeme);
+                    // printf("String duplicated");
+                }
+                else
+                {
+                    addToList(lexeme, current);
+                    printf(" --: %s\n", lexeme);
+                    // printf("Command added to list");
+                }
+                count++;
+                // commands = head;
+            // case REDIR_OUT:
+            //     printf(">\n");
+            // }
             }
+        }
+        commands = calloc(1, sizeof(Word));
+        commands = current->arg_list;
+        while(commands->prev != NULL){
+            commands = commands->prev;
+        }
+        while (commands != NULL)
+        {
+            printf("%s\n", commands->string);
+            commands = commands->next;
         }
     }
 }
