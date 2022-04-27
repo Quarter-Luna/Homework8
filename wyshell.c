@@ -115,7 +115,7 @@ int main()
             break;
           }
           addToList(lexeme, current);
-          printf("--: %s\n", lexeme);
+          printf(" --: %s\n", lexeme);
         }
         break;
       case REDIR_OUT:
