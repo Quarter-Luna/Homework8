@@ -75,6 +75,7 @@ int main()
 {
   Node *Head = NULL, *current = NULL;
   Word *commands = NULL;
+  int flag = 0;
   while (1)
   {
     printf("$> ");
@@ -109,9 +110,11 @@ int main()
         {
           addToList(lexeme, current);
           current->prev = calloc(1, sizeof(Node));
-          if (strcmp(&current->prev->command, "|") == 0 || strcmp(&current->prev->command, "<") == 0 
-          || strcmp(&current->prev->command, ">") == 0 || strcmp(&current->prev->command, ";") == 0)
+          // if (strcmp(&current->prev->command, "|") == 0 || strcmp(&current->prev->command, "<") == 0 
+          // || strcmp(&current->prev->command, ">") == 0 || strcmp(&current->prev->command, ";") == 0)
+          if(flag == 0)
           {
+            flag = 1;
             printf(":--: %s\n", lexeme);
           }
           else
@@ -125,15 +128,19 @@ int main()
         break;
       case REDIR_OUT:
         printf(">\n");
+        flag = 0;
         break;
       case REDIR_IN:
         printf("<\n");
+        flag = 0;
         break;
       case PIPE:
         printf("|\n");
+        flag = 0;
         break;
       case SEMICOLON:
         printf(";\n");
+        flag = 0;
         break;
       default:
         break;
