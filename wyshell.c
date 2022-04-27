@@ -109,7 +109,7 @@ int main()
         {
           addToList(lexeme, current);
           current->prev = calloc(1, sizeof(Node));
-          char comp[] = &current->prev->command;
+          char comp[] = current->prev->command;
           if (strcmp(comp, "|") == 0 || strcmp(comp, "<") == 0 
           || strcmp(comp, ">") == 0 || strcmp(comp, ";") == 0)
           {
