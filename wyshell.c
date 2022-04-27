@@ -81,6 +81,7 @@ int main()
         prtn = fgets(buff, 4096, stdin);
         if (prtn == NULL)
         {
+          printf("\n");
             return 0;
         }
         rtn = parse_line(buff);
