@@ -1,7 +1,7 @@
 /*************************************
  * wyshell.c
  * Author: Ian Moon
- * Date: 19 April 2022
+ * Date: 26 April 2022
  *
  * This file is the set up the shell
  * using functions from the wyscanner
@@ -10,17 +10,6 @@
  * Collaborated with Zach Chrimmel on
  * this project
  ************************************/
-
-//
-// wyshell.c
-// Author: Zachary Crimmel
-// Date: Apr 20, 2022
-//
-// COSC 3750, Homework 8
-//
-// This is a shell program that was written in c
-// Collaborated with Ian Moon on this Homework
-//
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -76,16 +65,20 @@ int main()
   Node *Head = NULL, *current = NULL;
   Word *commands = NULL;
   int flag = 0;
-  int overload = 0;
   /******************************
-  * Zach tried doing string compare
-  * with the &current->prev->command
-  * and it was segmentation faulting
-  * so I came up with this workaround.
-  ********************************/
+   * Zach tried doing string compare
+   * with the &current->prev->command
+   * and it was segmentation faulting
+   * so I came up with this workaround.
+   ********************************/
+
+  // The process loop
   while (1)
   {
+    // flags to trigger specific events
+    int amOut = 0, amIn = 0, eol = 0;
     printf("$> ");
+    // reads in from standard in
     prtn = fgets(buff, 4096, stdin);
     if (prtn == NULL)
     {
@@ -94,7 +87,6 @@ int main()
     }
     rtn = parse_line(buff);
     // current = calloc(1, sizeof(Node));
-    int count = 0;
     while (rtn != EOL)
     {
       switch (rtn)
@@ -106,14 +98,10 @@ int main()
           current = Head;
           // printf("head created");
         }
-        if(overload > 1) 
-        {
-          printf("Ambiguous output redirection\n");
-          rtn = EOL;
-        }
 
-        if (current->command == NULL)
+        if (current->command == NULL || flag == 1)
         {
+          flag = 0;
           current->command = strdup(lexeme);
           printf(":--: %s\n", lexeme);
           // printf("String duplicated");
@@ -122,32 +110,47 @@ int main()
         {
           addToList(lexeme, current);
           current->prev = calloc(1, sizeof(Node));
-          // if (strcmp(&current->prev->command, "|") == 0 || strcmp(&current->prev->command, "<") == 0 
+          // if (strcmp(&current->prev->command, "|") == 0 || strcmp(&current->prev->command, "<") == 0
           // || strcmp(&current->prev->command, ">") == 0 || strcmp(&current->prev->command, ";") == 0)
-          if(flag == 0)
+          if (flag == 0)
           {
             flag = 1;
             printf(":--: %s\n", lexeme);
           }
           else
           {
+            if(eol == 1)
+              break;
             printf("--: %s\n", lexeme);
           }
-          // printf("Command added to list");
         }
-        count++;
-        // commands = head;
         break;
       case REDIR_OUT:
-        printf(">\n");
-        flag = 0;
-        overload++;
-        break;
+        // if read out is used more than once
+        if(amOut == 1)
+        {
+          printf("Ambiguous output redirection");
+          eol = 1;
+          break;
+        }
+        else
+        {
+          amOut = 1;
+          printf(">\n");
+          break;
+        }
       case REDIR_IN:
+        if(amOut == 1 || amIn == 1)
+        {
+          printf("Ambiguous output redirection");
+          eol = 1;
+          break;
+        }
+        else{
         printf("<\n");
-        flag = 0;
-        overload++;
+        amIn = 1;
         break;
+        }
       case PIPE:
         printf("|\n");
         flag = 0;
@@ -160,9 +163,15 @@ int main()
         break;
       }
       rtn = parse_line(NULL);
+      if(eol == 1)
+      {
+        break;
+      }
     }
-    if(overload < 2)
-    printf("--: EOL\n");
+    if(eol != 1)
+    {
+      printf("--: EOL\n");
+    }
     /*
         commands = calloc(1, sizeof(Word));
         commands = current->arg_list;
