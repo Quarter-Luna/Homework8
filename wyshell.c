@@ -108,7 +108,8 @@ int main()
                 {
                     addToList(lexeme, current);
                     current->prev = calloc(1,sizeof(Node));
-                    if (strcmp(&current->prev->command, "|") == 0 || strcmp(&current->prev->command, "<") == 0 || strcmp(&current->prev->command, ">") == 0)
+                    if (strcmp(&current->prev->command, "|") == 0 || strcmp(&current->prev->command, "<") == 0 
+                    || strcmp(&current->prev->command, ">") == 0 || strcmp(&current->prev->command, ";") == 0)
                     {
                         printf(":--: %s\n", lexeme);
                     }
@@ -129,6 +130,9 @@ int main()
                 break;
             case PIPE:
                 printf("|\n");
+                break;
+            case SEMICOLON:
+                printf(";\n");
                 break;
             default:
                 break;
