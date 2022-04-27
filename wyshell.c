@@ -99,37 +99,30 @@ int main()
           // printf("head created");
         }
 
-        if (current->command == NULL || flag == 1)
+        if (current->command == NULL || flag == 0)
         {
-          flag = 0;
+          flag = 1;
           current->command = strdup(lexeme);
           printf(":--: %s\n", lexeme);
           // printf("String duplicated");
         }
         else
         {
-          addToList(lexeme, current);
-          current->prev = calloc(1, sizeof(Node));
           // if (strcmp(&current->prev->command, "|") == 0 || strcmp(&current->prev->command, "<") == 0
           // || strcmp(&current->prev->command, ">") == 0 || strcmp(&current->prev->command, ";") == 0)
-          if (flag == 0)
+          if(eol == 1) 
           {
-            flag = 1;
-            printf(":--: %s\n", lexeme);
+            break;
           }
-          else
-          {
-            if(eol == 1)
-              break;
-            printf("--: %s\n", lexeme);
-          }
+          addToList(lexeme, current);
+          printf("--: %s\n", lexeme);
         }
         break;
       case REDIR_OUT:
         // if read out is used more than once
         if(amOut == 1)
         {
-          printf("Ambiguous output redirection");
+          printf("Ambiguous output redirection\n");
           eol = 1;
           break;
         }
@@ -142,7 +135,7 @@ int main()
       case REDIR_IN:
         if(amOut == 1 || amIn == 1)
         {
-          printf("Ambiguous output redirection");
+          printf("Ambiguous output redirection\n");
           eol = 1;
           break;
         }
