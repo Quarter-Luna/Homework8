@@ -109,7 +109,6 @@ int main()
         {
           addToList(lexeme, current);
           current->prev = calloc(1, sizeof(Node));
-          strcmp(&current->prev->command, "|");
           if (strcmp(&current->prev->command, "|") == 0 || strcmp(&current->prev->command, "<") == 0 
           || strcmp(&current->prev->command, ">") == 0 || strcmp(&current->prev->command, ";") == 0)
           {
@@ -117,7 +116,7 @@ int main()
           }
           else
           {
-            printf(" --: %s\n", lexeme);
+            printf("--: %s\n", lexeme);
           }
           // printf("Command added to list");
         }
