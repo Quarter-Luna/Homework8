@@ -76,6 +76,13 @@ int main()
   Node *Head = NULL, *current = NULL;
   Word *commands = NULL;
   int flag = 0;
+  int overload = 0;
+  /******************************
+  * Zach tried doing string compare
+  * with the &current->prev->command
+  * and it was segmentation faulting
+  * so I came up with this workaround.
+  ********************************/
   while (1)
   {
     printf("$> ");
@@ -98,6 +105,11 @@ int main()
           Head = calloc(1, sizeof(Node));
           current = Head;
           // printf("head created");
+        }
+        if(overload > 1) 
+        {
+          printf("Ambiguous output redirection\n");
+          rtn = EOL;
         }
 
         if (current->command == NULL)
@@ -129,10 +141,12 @@ int main()
       case REDIR_OUT:
         printf(">\n");
         flag = 0;
+        overload++;
         break;
       case REDIR_IN:
         printf("<\n");
         flag = 0;
+        overload++;
         break;
       case PIPE:
         printf("|\n");
@@ -147,6 +161,7 @@ int main()
       }
       rtn = parse_line(NULL);
     }
+    if(overload < 2)
     printf("--: EOL\n");
     /*
         commands = calloc(1, sizeof(Word));
