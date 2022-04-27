@@ -109,8 +109,9 @@ int main()
         {
           addToList(lexeme, current);
           current->prev = calloc(1, sizeof(Node));
-          if (strcmp(current->prev->command, "|") == 0 || strcmp(current->prev->command, "<") == 0 
-          || strcmp(current->prev->command, ">") == 0 || strcmp(current->prev->command, ";") == 0)
+          char comp[] = &current->prev->command;
+          if (strcmp(comp, "|") == 0 || strcmp(comp, "<") == 0 
+          || strcmp(comp, ">") == 0 || strcmp(comp, ";") == 0)
           {
             printf(":--: %s\n", lexeme);
           }
